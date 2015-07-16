@@ -1,103 +1,112 @@
-package cs220lab1;
+package PredPreySim;
 
 /**
- *	The Animal class allows animals a place in the world.
- *	Hypothetically, there is only one world that all the animals live.
- *	However, each animal sees and lives in their own "world" by simply referring to the world.
- *	That is, one world references all animals, while each animal references their place in it.
- *	one-to-many, and many-to-one   
- */	
+ * The Animal class allows animals a place in the world.
+ * Each animal sees and lives in their own "world" by referencing the world.
+ * One world holds all the animals by reference, while each animal references the world.
+ */
 public abstract class Animal
 {
-	protected int x,y;				// position in the world (height, width)
-	protected boolean hasMoved;		// indicates if animal has moved
-	protected int breedCount;		// steps since breeding
-	protected World world;	        // world reference for updating
-
-	/* 
-	 * Constructor for child classes 
+	protected int x, y;			// position in the world (width, height)
+	protected boolean hasMoved;	// indicates if the animals has moved
+	protected int breedCount;	// steps since breeding
+	protected World world;		// world reference for updating
+	
+	/**
+	 * Constructor for child classes
 	 * Initializes the animal at the given position in the world
-	 * Sets the moved flag and breed count.
-     */
+	 * Set the moved flag and breed count.
+	 */
 	protected Animal(World world, int x, int y)
-	{	
+	{
 		this.x = x;
 		this.y = y;
 		hasMoved = false;
 		breedCount = 0;
-		world.set(x, y, (Animal) this);
-		this.world = world;			// needed, or get null pointer
+		world.set(x, y, (Animal) this); // Update World Reference with the Animal 
+		this.world = world;				// Initialize the Animal's World Reference with current World reference.
+										//  needed or get null pointer.
 	}
-
-  	/*
-     * Returns true if the animal has attempted to move,
-     * false otherwise.
- 	 */
+	
 	public boolean getMoved()
 	{
 		return hasMoved;
 	}
-
+	
 	public void setMoved(boolean hasMoved)
 	{
 		this.hasMoved = hasMoved;
 	}
 	
-	/*
-	 *  Directions: 0 = up, 1 = down, 2 = left, 3 = right
-	 *  generated randomly
+	/**
+	 * Randomly move directions
+	 * 0 = up
+	 * 1 = down
+	 * 2 = left
+	 * 3 = right
+	 * Animal updates it's reference. World needs to update also.
 	 */
 	public void move()
 	{
 		int direction = (int) (Math.random() * 4);
-
+		
 		switch (direction)
 		{
-		case 0:	// attempt to move up
+		case 0: // attempt to move up
 			if (x > 0 && world.get(x-1, y) == null) {
-				world.set(x-1, y, this);    // put animal in new location
-				world.set(x, y, null);	    // null old position to empty
+				//System.out.println("Moving UP...");
+				world.set(x-1, y, this);
+				//System.out.println("Moving to " + this.x + "," + this.y);
+				world.set(x, y, null);		// old position is empty, null
+				//System.out.println("Moving from " + this.x + "," + this.y + " -> null.");
 				--x;
+				//System.out.println("Moved to..." + this.x + "," + this.y);
 			}
 			break;
-			
-		case 1:	// attempt to move down
-			if (x < World.HEIGHT-1 && world.get(x+1, y) == null) {
-				world.set(x+1, y, this);
-				world.set(x, y, null);
-				++x;
-			}
-			break;
-			
-		case 2:	// attempt to move left
-			if (y > 0 && world.get(x, y-1) == null) {
-				world.set(x, y-1, this);
-				world.set(x, y, null);
-				--y;
-			}
-			break;
-			
-		case 3:	// attempt to move right
-			if (y < World.WIDTH-1 && world.get(x, y+1) == null) {
-				world.set(x, y+1, this);    // Move to new spot
-				world.set(x, y, null);	    // Set current spot to empty
-				++y;
-			}
-		}
 		
+		case 1: // attempt to move down
+			if (x < World.HEIGHT-1 && world.get(x+1, y) == null) {
+				//System.out.println("Moving DOWN...");
+				world.set(x+1, y, this);
+				//System.out.println("Moving to " + this.x + "," + this.y);
+				world.set(x, y, null);
+				//System.out.println("Moving from " + this.x + "," + this.y + " -> null.");
+				++x;
+				//System.out.println("Moved to..." + this.x + "," + this.y);
+			}
+			break;
+		
+		case 2: // attempt to move left
+			if (y > 0 && world.get(x, y-1) == null) {
+				//System.out.println("Moving LEFT...");
+				world.set(x, y-1, this);
+				//System.out.println("Moving to " + this.x + "," + this.y);
+				world.set(x, y, null);				
+				//System.out.println("Moving from " + this.x + "," + this.y + " -> null.");
+				--y;
+				//System.out.println("Moved to..." + this.x + "," + this.y);
+			}
+			break;
+		
+		case 3: // attempt to move right
+			if (y < World.WIDTH-1 && world.get(x, y+1) == null) {
+				//System.out.println("Moving RIGHT...");
+				world.set(x, y+1, this);
+				//System.out.println("Moving to " + this.x + "," + this.y);
+				world.set(x, y, null);				
+				//System.out.println("Moving from " + this.x + "," + this.y + " -> null.");
+				++y;
+				//System.out.println("Moved to..." + this.x + "," + this.y);
+			}
+			break;
+		}
 		breedCount++;
-    } // end move
+	}
 	
-	
-	/* the animal attempts to breed */
 	public abstract void breed();
 	
-	/* returns true if the animal has starved to death,
-		false otherwise. */
 	public abstract boolean starve();
-
-	 /* returns the character representing the animal for
-		console output. */
+	
 	public abstract String getChar();
-
-} // end class Animal
+	
+}
