@@ -47,7 +47,6 @@ public class World {
 			isSuccessful = false;
 		else
 		{
-			//System.out.println("SET:\t" + x + ",\t" + y);
 			world[x][y] = a;	//World reference accepts Animal reference
 			isSuccessful = true;
 		}
@@ -80,23 +79,32 @@ public class World {
 	 * 3. Each Animal has attempted to move
 	 * 4. Check if any animals have starved.
 	 * 5. Each Animal attempts to breed; (1)Cat, (2)Pigeon, (3)Snail, etc.
+	 * 
+	 * Tests to keep in mind after move()
+	 * ----------------------------------
+	 * 	if (world[i][j] == null)
+	 * 		System.out.println("World is null at "+ i + ", " + j);
+	 *  else
+	 *  	System.out.println("Animal didn't move.");
+	 *  System.out.println();
+	 *  ----------------------------------
+	 *  System.out.println(i +","+ j +" ("+ world[i][j].getChar() + ") MOVED.");
+	 *  ----------------------------------
 	 */
 	public void simulateStep()
 	{
 		for (int i = 0; i < World.WIDTH; i++)
 			for (int j = 0; j < World.WIDTH; j++)
-				if (world[i][j] != null) {
-
-					world[i][j].setMoved(false);
-					//System.out.println(i +","+ j +" ("+ world[i][j].getChar() + ") UNMOVED.");
-					
-					//check World, needs update position reference for Animal
+				if (world[i][j] != null && world[i][j].getMoved() == false)
 					world[i][j].move();
-					//System.out.println(i +","+ j +" ("+ world[i][j].getChar() + ") MOVED.");
 					
-					//world[i][j].starve();
-					//world[i][j].breed();
+		for (int i = 0; i < World.WIDTH; i++)
+			for (int j = 0; j < World.WIDTH; j++)
+				if (world[i][j] != null && world[i][j].getMoved() == true) {
+					//world[i][j].starve();		// test last
+					world[i][j].breed();
+					world[i][j].setMoved(false);
 				}
+		
 	}
-	
 }

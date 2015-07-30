@@ -27,7 +27,7 @@ public abstract class Animal
 		this.world = world;				// Initialize the Animal's World Reference with current World reference.
 										//  needed or get null pointer.
 	}
-	
+
 	public boolean getMoved()
 	{
 		return hasMoved;
@@ -54,49 +54,49 @@ public abstract class Animal
 		{
 		case 0: // attempt to move up
 			if (x > 0 && world.get(x-1, y) == null) {
-				//System.out.println("Moving UP...");
-				world.set(x-1, y, this);
-				//System.out.println("Moving to " + this.x + "," + this.y);
-				world.set(x, y, null);		// old position is empty, null
-				//System.out.println("Moving from " + this.x + "," + this.y + " -> null.");
-				--x;
-				//System.out.println("Moved to..." + this.x + "," + this.y);
+				System.out.print("Moving UP to...");
+				
+				//Update reference
+				world.set(x-1, y, this);	//Animal
+				world.set(x, y, null);		//previous location to null
+				
+				//Update self
+				--x;						//Update location
+				System.out.println(this.x + "," + this.y);
+				this.setMoved(true);
 			}
 			break;
 		
 		case 1: // attempt to move down
 			if (x < World.HEIGHT-1 && world.get(x+1, y) == null) {
-				//System.out.println("Moving DOWN...");
+				System.out.print("Moving DOWN to...");
 				world.set(x+1, y, this);
-				//System.out.println("Moving to " + this.x + "," + this.y);
 				world.set(x, y, null);
-				//System.out.println("Moving from " + this.x + "," + this.y + " -> null.");
 				++x;
-				//System.out.println("Moved to..." + this.x + "," + this.y);
+				System.out.println(this.x + "," + this.y);
+				this.setMoved(true);
 			}
 			break;
 		
 		case 2: // attempt to move left
 			if (y > 0 && world.get(x, y-1) == null) {
-				//System.out.println("Moving LEFT...");
+				System.out.print("Moving LEFT to...");
 				world.set(x, y-1, this);
-				//System.out.println("Moving to " + this.x + "," + this.y);
 				world.set(x, y, null);				
-				//System.out.println("Moving from " + this.x + "," + this.y + " -> null.");
 				--y;
-				//System.out.println("Moved to..." + this.x + "," + this.y);
+				System.out.println(this.x + "," + this.y);
+				this.setMoved(true);
 			}
 			break;
 		
 		case 3: // attempt to move right
 			if (y < World.WIDTH-1 && world.get(x, y+1) == null) {
-				//System.out.println("Moving RIGHT...");
+				System.out.print("Moving RIGHT to...");
 				world.set(x, y+1, this);
-				//System.out.println("Moving to " + this.x + "," + this.y);
 				world.set(x, y, null);				
-				//System.out.println("Moving from " + this.x + "," + this.y + " -> null.");
 				++y;
-				//System.out.println("Moved to..." + this.x + "," + this.y);
+				System.out.println(this.x + "," + this.y);
+				this.setMoved(true);
 			}
 			break;
 		}
