@@ -74,60 +74,55 @@ public class World {
 	}
 	
 	/**
-	 * 1. Each Animal attempts to move; (1)Cat, (2)Pigeon, (3)Snail, etc.
-	 * 2. Check if any animals have starved.
-	 * 3. Each Animal attempts to breed; (1)Cat, (2)Pigeon, (3)Snail, etc.
-	 * 
-	 * Tests to keep in mind after move()
-	 * ----------------------------------
-	 * 	if (world[i][j] == null)
-	 * 		System.out.println("World is null at "+ i + ", " + j);
-	 *  else
-	 *  	System.out.println("Animal didn't move.");
-	 *  System.out.println();
-	 *  ----------------------------------
-	 *  System.out.println(i +","+ j +" ("+ world[i][j].getChar() + ") MOVED.");
-	 *  ----------------------------------
+	 * Simulates one step in the world.
 	 */
 	public void simulateStep()
 	{
-		/**
-		// Move the Cats
+		moveAnimal("C");
+		moveAnimal("P");
+		moveAnimal("S");
+		
+		checkStarve();
+
+		breedAnimal("C");
+		breedAnimal("P");
+		breedAnimal("S");
+
+		resetAnimal();		
+	}
+	
+	private void moveAnimal(String animal)
+	{
 		for (int i = 0; i < World.WIDTH; i++)
 			for (int j = 0; j < World.WIDTH; j++)
 				if (world[i][j] != null && world[i][j].getMoved() == false)
-					if (world[i][j].getChar() == "C")	
+					if (world[i][j].getChar() == animal)
 						world[i][j].move();
-		*/
-		
-		// Move the Pigeons		
+	}
+	
+	private void breedAnimal(String animal)
+	{
 		for (int i = 0; i < World.WIDTH; i++)
 			for (int j = 0; j < World.WIDTH; j++)
-				if (world[i][j] != null && world[i][j].getMoved() == false)
-					if (world[i][j].getChar() == "P")	
-						world[i][j].move();
-		
-		// Move the Snails
+				if (world[i][j] != null && world[i][j].getMoved() == true)
+					if (world[i][j].getChar() == animal)
+						world[i][j].breed();	
+	}
+	
+	private void checkStarve()
+	{
 		for (int i = 0; i < World.WIDTH; i++)
 			for (int j = 0; j < World.WIDTH; j++)
-				if (world[i][j] != null && world[i][j].getMoved() == false)
-					if (world[i][j].getChar() == "S")	
-						world[i][j].move();			
-		
-		//Check for starvation
-		for (int i = 0; i < World.WIDTH; i++)
-			for (int j = 0; j < World.WIDTH; j++)
-				if (world[i][j] != null && world[i][j].getMoved() == true) {
-					if (world[i][j].starve()) {
+				if (world[i][j] != null && world[i][j].getMoved() == true)
+					if (world[i][j].starve())
 						world[i][j] = null;
-						//System.out.println("Pigeon just starved. That means it died.");
-					}
-					else {
-						//System.out.println("Still alive..");
-						world[i][j].breed();	//test move()/starve() first
-						world[i][j].setMoved(false);
-					}
-				}
-		
+	}
+	
+	private void resetAnimal()
+	{
+		for (int i = 0; i < World.WIDTH; i++)
+			for (int j = 0; j < World.WIDTH; j++)
+				if (world[i][j] != null && world[i][j].getMoved() == true)
+					world[i][j].setMoved(false);
 	}
 }

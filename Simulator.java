@@ -8,9 +8,9 @@ import java.util.Scanner;
 
 public class Simulator
 {
-	public static final int NUM_SNAILS = 100;		// try 100
-	public static final int NUM_PIGEONS = 100;	// try 10
-	public static final int NUM_CATS = 0;		// try 3
+	public static final int NUM_SNAILS = 10;		// try 100
+	public static final int NUM_PIGEONS = 10;	// try 10
+	public static final int NUM_CATS = 10;		// try 3
 
 	public static void main(String[] args)
 	{
