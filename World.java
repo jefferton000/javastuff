@@ -74,11 +74,9 @@ public class World {
 	}
 	
 	/**
-	 * 1. Animals are set to not moved.
-	 * 2. Each Animal attempts to move; (1)Cat, (2)Pigeon, (3)Snail, etc.
-	 * 3. Each Animal has attempted to move
-	 * 4. Check if any animals have starved.
-	 * 5. Each Animal attempts to breed; (1)Cat, (2)Pigeon, (3)Snail, etc.
+	 * 1. Each Animal attempts to move; (1)Cat, (2)Pigeon, (3)Snail, etc.
+	 * 2. Check if any animals have starved.
+	 * 3. Each Animal attempts to breed; (1)Cat, (2)Pigeon, (3)Snail, etc.
 	 * 
 	 * Tests to keep in mind after move()
 	 * ----------------------------------
@@ -93,17 +91,42 @@ public class World {
 	 */
 	public void simulateStep()
 	{
+		/**
+		// Move the Cats
 		for (int i = 0; i < World.WIDTH; i++)
 			for (int j = 0; j < World.WIDTH; j++)
 				if (world[i][j] != null && world[i][j].getMoved() == false)
-					world[i][j].move();
-					
+					if (world[i][j].getChar() == "C")	
+						world[i][j].move();
+		*/
+		
+		// Move the Pigeons		
+		for (int i = 0; i < World.WIDTH; i++)
+			for (int j = 0; j < World.WIDTH; j++)
+				if (world[i][j] != null && world[i][j].getMoved() == false)
+					if (world[i][j].getChar() == "P")	
+						world[i][j].move();
+		
+		// Move the Snails
+		for (int i = 0; i < World.WIDTH; i++)
+			for (int j = 0; j < World.WIDTH; j++)
+				if (world[i][j] != null && world[i][j].getMoved() == false)
+					if (world[i][j].getChar() == "S")	
+						world[i][j].move();			
+		
+		//Check for starvation
 		for (int i = 0; i < World.WIDTH; i++)
 			for (int j = 0; j < World.WIDTH; j++)
 				if (world[i][j] != null && world[i][j].getMoved() == true) {
-					//world[i][j].starve();		// test last
-					world[i][j].breed();
-					world[i][j].setMoved(false);
+					if (world[i][j].starve()) {
+						world[i][j] = null;
+						//System.out.println("Pigeon just starved. That means it died.");
+					}
+					else {
+						//System.out.println("Still alive..");
+						world[i][j].breed();	//test move()/starve() first
+						world[i][j].setMoved(false);
+					}
 				}
 		
 	}

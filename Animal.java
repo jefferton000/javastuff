@@ -54,7 +54,7 @@ public abstract class Animal
 		{
 		case 0: // attempt to move up
 			if (x > 0 && world.get(x-1, y) == null) {
-				System.out.print("Moving UP to...");
+				//System.out.print("Moving UP to...");
 				
 				//Update reference
 				world.set(x-1, y, this);	//Animal
@@ -62,40 +62,40 @@ public abstract class Animal
 				
 				//Update self
 				--x;						//Update location
-				System.out.println(this.x + "," + this.y);
+				//System.out.println(this.x + "," + this.y);
 				this.setMoved(true);
 			}
 			break;
 		
 		case 1: // attempt to move down
 			if (x < World.HEIGHT-1 && world.get(x+1, y) == null) {
-				System.out.print("Moving DOWN to...");
+				//System.out.print("Moving DOWN to...");
 				world.set(x+1, y, this);
 				world.set(x, y, null);
 				++x;
-				System.out.println(this.x + "," + this.y);
+				//System.out.println(this.x + "," + this.y);
 				this.setMoved(true);
 			}
 			break;
 		
 		case 2: // attempt to move left
 			if (y > 0 && world.get(x, y-1) == null) {
-				System.out.print("Moving LEFT to...");
+				//System.out.print("Moving LEFT to...");
 				world.set(x, y-1, this);
 				world.set(x, y, null);				
 				--y;
-				System.out.println(this.x + "," + this.y);
+				//System.out.println(this.x + "," + this.y);
 				this.setMoved(true);
 			}
 			break;
 		
 		case 3: // attempt to move right
 			if (y < World.WIDTH-1 && world.get(x, y+1) == null) {
-				System.out.print("Moving RIGHT to...");
+				//System.out.print("Moving RIGHT to...");
 				world.set(x, y+1, this);
 				world.set(x, y, null);				
 				++y;
-				System.out.println(this.x + "," + this.y);
+				//System.out.println(this.x + "," + this.y);
 				this.setMoved(true);
 			}
 			break;

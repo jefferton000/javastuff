@@ -14,7 +14,7 @@ public class Snail extends Animal
 	{
 		if (breedCount == STEPS_UNTIL_BREED)
 		{
-			System.out.println("BREEDING");
+			//System.out.println("SNAIL BREEDING");
 			// attempt to make a new Snail in an adjacent cell
 			if (x > 0 && world.get(x-1, y) == null) {
 				Snail s = new Snail(world, x-1, y);
