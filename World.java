@@ -1,4 +1,4 @@
-package PredPreySim;
+package javastuff;
 
 /**
  * Represents and implements the world where all the animals reside.

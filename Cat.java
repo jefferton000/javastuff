@@ -1,4 +1,4 @@
-package PredPreySim;
+package javastuff;
 
 import java.io.ObjectInputStream.GetField;
 

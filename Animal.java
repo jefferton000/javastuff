@@ -1,4 +1,4 @@
-package PredPreySim;
+package javastuff;
 
 /**
  * The Animal class allows animals a place in the world.

@@ -1,4 +1,4 @@
-package PredPreySim;
+package javastuff;
 
 //Could we just extends from Snail? 
 public class Weevil extends Animal

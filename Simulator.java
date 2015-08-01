@@ -1,4 +1,4 @@
-package PredPreySim;
+package javastuff;
 
 /**
  * 2D Predator-Prey Simulator

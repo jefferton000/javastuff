@@ -1,4 +1,4 @@
-package PredPreySim;
+package javastuff;
 
 
 public class Pigeon extends Animal
